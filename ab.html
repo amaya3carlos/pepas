@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>abindex</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+ var socket= io();
+ ob_str=[];
+$(document).ready(function(){
+	rdm();
+	ob_str[0]=str; ob_str[1]=color;
+	
+	socket.on('rNuevo',function(obsrt){
+		//$('#idconten').append(obsrt)
+		funNuevahoja(obsrt[1],obsrt[0])
+		});
+	
+	socket.on('usersOn',function(cont){
+		$('#u_on').html('en linea_'+cont);
+						
+		});	
+	socket.on('eFuera',function(idH){
+		
+		$('#'+idH).css('opacity','.3')
+		});
+	
+});
+function funNuevahoja(c,i){
+	var c2= c.split('');
+	c2=c2.reverse();
+	c2=c2.join('').slice(0,-1);
+	
+	/**/
+	var nuevahoja=$('<div/>',{'class':'claserama', 'id':i}).text(c2);
+	$('#idconten').append(nuevahoja.css({'background':c,'border':'2px solid #'+c2}));
+	}
+	
+function rdm(){
+	 
+	 var chars="0123456789ABCDEF";
+	 str=''; color='#';
+	 for(var i=0; i<=5;i++){
+		 
+		 var rnum=Math.floor(Math.random()*chars.length);
+		 str+=chars.substring(rnum,rnum+1);
+		 color += chars.substring(rnum,rnum+1);
+		 } 
+	 }
+</script>
+<style>
+.claserama{
+	border-radius:5px;
+	margin:1px;
+	width:50px; height:50px;
+	}
+</style>
+</head>
+
+<body>
+<h3 id="u_on">En linea: <b>0</b></h3>
+
+	<div id="idconten"></div>
+</body>
+</html>

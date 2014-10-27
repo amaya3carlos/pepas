@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>abc</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+ var socket= io();
+ ob_str=[];
+$(document).ready(function(){
+	rdm();
+	
+	ob_str[0]=str; ob_str[1]=color;
+	nuevoU(color,str);
+	
+	socket.emit('eNuevo',ob_str); 
+	
+	socket.on('usersOn',function(cont){
+		$('#u_on').html('en linea_'+cont);
+						
+		});
+			
+	
+});
+$(window).bind('unload',function(){ socket.emit('fuera',123); })
+function nuevoU(c,i){
+	
+	var nuevahoja=$('<div/>',{'class':'claserama', 'id':i});
+	$('#rama').append(nuevahoja.css('background',c));
+	
+	}
+	
+function rdm(){
+	 
+	 var chars="0123456789ABCDEF";
+	 str=''; color='#';
+	 for(var i=0; i<=5;i++){
+		 
+		 var rnum=Math.floor(Math.random()*chars.length);
+		 str+=chars.substring(rnum,rnum+1);
+		 color += chars.substring(rnum,rnum+1);
+		 } 
+	 }
+</script>
+<style>
+.claserama{
+	width:50px; height:50px;
+	}
+</style>
+</head>
+
+<body>
+<h3 id="u_on">En linea: <b>0</b></h3>
+
+	<div id="rama"></div>
+</body>
+</html>
