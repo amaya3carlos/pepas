@@ -4,6 +4,11 @@ var http= require('http').Server(app);
 var io = require('socket.io')(http);
 //var path=require('path');
 
+app.get('/',function(req,res){
+	res.send('hellow everybody');
+	//res.sendFile(path.join(__dirname, 'index.html'));
+	});
+
 app.get('/ab',function(req,res){
 	res.sendfile('ab.html');
 	//res.sendFile(path.join(__dirname, 'index.html'));
@@ -11,13 +16,13 @@ app.get('/ab',function(req,res){
 app.get('/abc',function(req,res){
 	res.sendfile('abc.html');
 	});
-	
+/*	
 var cont=0;
 var obstr=[];   var idH={};
 io.on('connection', function(socket){
 	cont++; 
 	io.emit('usersOn',cont)
-	/**/
+	
 			
 	socket.on('eNuevo',function(obstr){
 		io.emit('rNuevo',obstr);
@@ -42,7 +47,7 @@ io.on('connection', function(socket){
     
   });
 });
-
+*/
 http.listen(3000,function(){
 	
 	console.log('running port 3000');
