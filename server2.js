@@ -1,4 +1,18 @@
 // JavaScript Document
+var express = require('express')
+var app = express();
+
+app.set('port', (process.env.PORT || 5000))
+app.use(express.static(__dirname + '/public'))
+
+app.get('/', function(request, response) {
+  response.send('Hello World!')
+})
+
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'))
+})
+/*
 var app = require('express')();
 var http= require('http').Server(app);
 var io = require('socket.io')(http);
@@ -16,7 +30,7 @@ app.get('/ab',function(req,res){
 app.get('/abc',function(req,res){
 	res.sendfile('abc.html');
 	});
-/*	
+	
 var cont=0;
 var obstr=[];   var idH={};
 io.on('connection', function(socket){
